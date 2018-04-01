@@ -134,12 +134,19 @@ public class MainActivity extends AppCompatActivity {
     }
 */
     protected void setMeal(int dayOfWeek){
-        if(m_arr[dayOfWeek][0].isEmpty()) breakfast.setText("정보가 없습니다.");
-        else breakfast.setText(Html.fromHtml(m_arr[dayOfWeek][0]));
-        if(m_arr[dayOfWeek][1].isEmpty()) lunch.setText("정보가 없습니다.");
-        else lunch.setText(Html.fromHtml(m_arr[dayOfWeek][1]));
-        if(m_arr[dayOfWeek][2].isEmpty()) dinner.setText("정보가 없습니다.");
-        else dinner.setText(Html.fromHtml(m_arr[dayOfWeek][2]));
+        try{
+            if(m_arr[dayOfWeek][0].isEmpty()) breakfast.setText("정보가 없습니다.");
+            else breakfast.setText(Html.fromHtml(m_arr[dayOfWeek][0]));
+            if(m_arr[dayOfWeek][1].isEmpty()) lunch.setText("정보가 없습니다.");
+            else lunch.setText(Html.fromHtml(m_arr[dayOfWeek][1]));
+            if(m_arr[dayOfWeek][2].isEmpty()) dinner.setText("정보가 없습니다.");
+            else dinner.setText(Html.fromHtml(m_arr[dayOfWeek][2]));
+        }catch (Exception e){
+            breakfast.setText("실행중 오류가 발생했습니다.\n종료 후 다시실행해 주세요.");
+            lunch.setText("실행중 오류가 발생했습니다.\n종료 후 다시실행해 주세요.");
+            dinner.setText("실행중 오류가 발생했습니다.\n종료 후 다시실행해 주세요.");
+        }
+
     }
 
     public void weekBtnClick(View view) {
