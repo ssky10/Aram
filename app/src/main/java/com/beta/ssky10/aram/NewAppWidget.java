@@ -184,9 +184,12 @@ public class NewAppWidget extends AppWidgetProvider {
     }
 
     void setMeal(AppWidgetManager appWidgetManager, int appWidgetId, RemoteViews view){
-        views.setTextViewText(R.id.wid_break,Html.fromHtml(m_arr[select][0]));
-        views.setTextViewText(R.id.wid_lunch,Html.fromHtml(m_arr[select][1]));
-        views.setTextViewText(R.id.wid_dinner,Html.fromHtml(m_arr[select][2]));
+        if(m_arr[select][0].isEmpty()) views.setTextViewText(R.id.wid_break,"오류가");
+        else views.setTextViewText(R.id.wid_break,Html.fromHtml(m_arr[select][0]));
+        if(m_arr[select][1].isEmpty()) views.setTextViewText(R.id.wid_break,"발생하였");
+        else views.setTextViewText(R.id.wid_break,Html.fromHtml(m_arr[select][1]));
+        if(m_arr[select][2].isEmpty()) views.setTextViewText(R.id.wid_break,"습니다.");
+        else views.setTextViewText(R.id.wid_break,Html.fromHtml(m_arr[select][2]));
         appWidgetManager.updateAppWidget(appWidgetId, view);
     }
 }
