@@ -212,7 +212,9 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             setMeal(select);
             segmentedButtonGroup.setPosition(select);
-            dialog.dismiss();
+            if (dialog != null && dialog.isShowing()) {
+                dialog.dismiss();
+            }
         }
     }
 

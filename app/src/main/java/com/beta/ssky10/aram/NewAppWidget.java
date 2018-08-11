@@ -43,7 +43,6 @@ public class NewAppWidget extends AppWidgetProvider {
         try{
             //CharSequence widgetText = context.getString(R.string.appwidget_text);
             // Construct the RemoteViews object
-            updateDay();
 
             views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
 
@@ -53,6 +52,7 @@ public class NewAppWidget extends AppWidgetProvider {
 
             //RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
 
+            updateDay();
             JsoupAsyncTask task = new JsoupAsyncTask();
             task.execute();
 
@@ -135,6 +135,7 @@ public class NewAppWidget extends AppWidgetProvider {
         month = Integer.parseInt(sdf.format(stan));
         sdf = new SimpleDateFormat("d");
         day = Integer.parseInt(sdf.format(stan));
+        views.setTextViewText(R.id.textview_day,month+"월 "+day+"일 아람관 식단");
     }
 
     private class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -184,12 +185,12 @@ public class NewAppWidget extends AppWidgetProvider {
     }
 
     void setMeal(AppWidgetManager appWidgetManager, int appWidgetId, RemoteViews view){
-        if(m_arr[select][0].isEmpty()) views.setTextViewText(R.id.wid_break,"오류가");
+        if(m_arr[select][0].isEmpty()) views.setTextViewText(R.id.wid_break,"정보가 없습니다");
         else views.setTextViewText(R.id.wid_break,Html.fromHtml(m_arr[select][0]));
-        if(m_arr[select][1].isEmpty()) views.setTextViewText(R.id.wid_break,"발생하였");
-        else views.setTextViewText(R.id.wid_break,Html.fromHtml(m_arr[select][1]));
-        if(m_arr[select][2].isEmpty()) views.setTextViewText(R.id.wid_break,"습니다.");
-        else views.setTextViewText(R.id.wid_break,Html.fromHtml(m_arr[select][2]));
+        if(m_arr[select][1].isEmpty()) views.setTextViewText(R.id.wid_lunch,"정보가 없습니다");
+        else views.setTextViewText(R.id.wid_lunch,Html.fromHtml(m_arr[select][1]));
+        if(m_arr[select][2].isEmpty()) views.setTextViewText(R.id.wid_dinner,"정보가 없습니다");
+        else views.setTextViewText(R.id.wid_dinner,Html.fromHtml(m_arr[select][2]));
         appWidgetManager.updateAppWidget(appWidgetId, view);
     }
 }
