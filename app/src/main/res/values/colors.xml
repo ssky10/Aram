@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#0F4C81</color>
+    <color name="colorPrimaryDark">#002554</color>
+    <color name="colorPrimaryLight">#84ABDF</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="textColor">@color/white</color>
+    <color name="mealBoardBackground">@color/paleGrey</color>
+    <color name="settingItem">@color/blueyGrey</color>
+    <color name="dark">#141428</color>
+    <color name="blueyGrey">#ABABC4</color>
+    <color name="white">#FFFFFF</color>
+    <color name="coralPink">#ff586c</color>
+    <color name="coralPink36">#5CFF586C</color>
+    <color name="classicBlue50">#800F4C81</color>
+    <color name="darkSkyBlue">#4a90e2</color>
+    <color name="paleGrey">#f6f6fa</color>
+    <color name="black">#000000</color>
+    <color name="dark16">#29181828</color>
+    <color name="darkNavyBlue36">#5C00000A</color>
+    <color name="darkNavyBlue">#2B2B2B</color>
+    <color name="blueyGrey16">#29ABABC4</color>
 </resources>

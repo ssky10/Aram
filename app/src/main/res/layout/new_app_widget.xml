@@ -2,14 +2,36 @@
     android:id="@+id/widgetBack"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_round"
+    android:layout_margin="0dp"
+    android:background="@android:drawable/alert_light_frame"
     android:orientation="vertical"
-    android:padding="@dimen/widget_margin">
+    android:padding="20dp">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/itemListBoxLL"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/progressBarLL"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

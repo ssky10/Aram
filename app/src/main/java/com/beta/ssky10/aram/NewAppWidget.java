@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -43,7 +43,7 @@ public class NewAppWidget extends AppWidgetProvider {
         try{
             //CharSequence widgetText = context.getString(R.string.appwidget_text);
             // Construct the RemoteViews object
-
+            Log.e("NewAppWidget", "updateAppWidget: start" );
             views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
 
             aWM = appWidgetManager;
@@ -51,6 +51,9 @@ public class NewAppWidget extends AppWidgetProvider {
             ct = context;
 
             //RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+
+            Log.e("NewAppWidget", "setMeal: start" );
+            views.setViewVisibility(R.id.progressBarLL, View.VISIBLE);
 
             updateDay();
             JsoupAsyncTask task = new JsoupAsyncTask();
@@ -75,6 +78,7 @@ public class NewAppWidget extends AppWidgetProvider {
             PendingIntent re_btn = PendingIntent.getBroadcast(context,
                     appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             views.setOnClickPendingIntent(R.id.recycle, re_btn);
+            appWidgetManager.updateAppWidget(appWidgetId,views);
         }
 
     }
@@ -191,6 +195,7 @@ public class NewAppWidget extends AppWidgetProvider {
         else views.setTextViewText(R.id.wid_lunch,Html.fromHtml(m_arr[select][1]));
         if(m_arr[select][2].isEmpty()) views.setTextViewText(R.id.wid_dinner,"정보가 없습니다");
         else views.setTextViewText(R.id.wid_dinner,Html.fromHtml(m_arr[select][2]));
+        views.setViewVisibility(R.id.progressBarLL, View.GONE);
         appWidgetManager.updateAppWidget(appWidgetId, view);
     }
 }
