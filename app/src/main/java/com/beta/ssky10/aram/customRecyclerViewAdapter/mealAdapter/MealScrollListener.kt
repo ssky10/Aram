@@ -1,11 +1,11 @@
-package com.beta.ssky10.aram.customRecyclerViewAdapter
+package com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter
 
-import android.support.annotation.IntDef
-import android.support.v7.widget.PagerSnapHelper
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.IntDef
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 
 
-class MealScrollListener(val snapHelper: PagerSnapHelper, @Type val type: Int, val notifyOnInit:Boolean, val listener:OnChangeListener, var snapPosition:Int = RecyclerView.NO_POSITION ) : RecyclerView.OnScrollListener() {
+class MealScrollListener(val snapHelper: PagerSnapHelper, @Type val type: Int, val notifyOnInit:Boolean, val listener: OnChangeListener, var snapPosition:Int = RecyclerView.NO_POSITION ) : RecyclerView.OnScrollListener() {
 
     companion object{
         const val ON_SCROLL = 0

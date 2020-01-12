@@ -1,4 +1,4 @@
-package com.beta.ssky10.aram.customRecyclerViewAdapter
+package com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter
 
 import android.graphics.Rect
 

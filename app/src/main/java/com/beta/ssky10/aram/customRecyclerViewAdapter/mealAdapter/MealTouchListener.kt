@@ -1,7 +1,7 @@
-package com.beta.ssky10.aram.customRecyclerViewAdapter
+package com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.MotionEvent
+import androidx.recyclerview.widget.RecyclerView
 
 class MealTouchListener(val indicatorInfo: IndicatorInfo) : RecyclerView.OnItemTouchListener {
     companion object{

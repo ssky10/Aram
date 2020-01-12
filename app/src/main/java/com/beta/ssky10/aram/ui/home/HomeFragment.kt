@@ -1,24 +1,24 @@
 package com.beta.ssky10.aram.ui.home
 
 import android.app.Dialog
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PagerSnapHelper
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.beta.ssky10.aram.R
-import com.beta.ssky10.aram.customRecyclerViewAdapter.*
+import com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter.*
 import com.beta.ssky10.aram.netWork.NetworkCoroutin
-import dmax.dialog.SpotsDialog
+//import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.*
-import java.util.*
+import java.util.Calendar
 import kotlin.coroutines.CoroutineContext
 
 class HomeFragment : Fragment(), CoroutineScope {
@@ -32,23 +32,23 @@ class HomeFragment : Fragment(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = mJob + Dispatchers.Main
 
-    lateinit var dialog:Dialog
-    lateinit var adapter:MealAdapter
+    //lateinit var dialog:Dialog
+    lateinit var adapter: MealAdapter
     var weekStr = arrayOf("일", "월", "화", "수", "목", "금", "토")
-    lateinit var rvMainMeal:RecyclerView
+    lateinit var rvMainMeal: RecyclerView
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        when(homeViewModel){
-            null -> homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        if(homeViewModel == null){
+            homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         }
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         mJob = Job()
         rvMainMeal = root!!.rv_main_meal
-        dialog = SpotsDialog(context)
+        //dialog = SpotsDialog(context)
         adapter = MealAdapter(context!!)
 
         rvMainMeal.adapter = adapter
@@ -72,8 +72,8 @@ class HomeFragment : Fragment(), CoroutineScope {
                 true,
                 object : MealScrollListener.OnChangeListener {
                     override fun onSnapped(position: Int) {
-                        if(position in 1..homeViewModel!!.mealData.value!!.size){
-                            homeViewModel!!.setTitle(position-1)
+                        if (position in 1..homeViewModel!!.mealData.value!!.size) {
+                            homeViewModel!!.setTitle(position - 1)
                         }
                     }
                 }
@@ -115,15 +115,15 @@ class HomeFragment : Fragment(), CoroutineScope {
     override fun onDestroy() {
         super.onDestroy()
         mJob.cancel()
-        if(dialog.isShowing){
-            dialog.cancel()
-        }
+        //if(dialog.isShowing){
+            //dialog.cancel()
+       // }
     }
 
     fun setMealData(){
         launch{
             try{
-                dialog.show()
+                //dialog.show()
                 val deferred = async(Dispatchers.Default) {
                     //백그라운드 스레드 에서 동작합니다
                     NetworkCoroutin.getMeal(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DATE))
@@ -143,7 +143,7 @@ class HomeFragment : Fragment(), CoroutineScope {
                 rvMainMeal.scrollToPosition(cal.get(Calendar.DAY_OF_WEEK))
                 isFirst = false
             }finally {
-                dialog.cancel()
+                //dialog.cancel()
             }
         }
     }

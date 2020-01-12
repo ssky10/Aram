@@ -1,8 +1,8 @@
 package com.beta.ssky10.aram
 
 import android.app.Application
-import android.support.v7.app.AppCompatDelegate
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.beta.ssky10.aram.models.MySharedPreferences
 
 class App : Application() {

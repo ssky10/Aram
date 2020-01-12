@@ -1,14 +1,14 @@
-package com.beta.ssky10.aram.customRecyclerViewAdapter
+package com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import android.support.v7.widget.RecyclerView
 import android.text.Html
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.beta.ssky10.aram.models.Meal
 import com.beta.ssky10.aram.R
 import kotlinx.android.synthetic.main.item_meal.view.*
@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_move_week.view.*
 
 class MealAdapter (var Act_context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
 
-    lateinit var onClickInterface:MealItemClickInterface
+    lateinit var onClickInterface: MealItemClickInterface
 
     var mealsList = listOf<Meal?>(null,null,null,null,null,null,null)
         set(values){

@@ -1,13 +1,14 @@
-package com.beta.ssky10.aram.customRecyclerViewAdapter
+package com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter
 
 import android.content.res.Resources
 import android.graphics.*
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter.IndicatorInfo
 
 class MealIndicatorDecoration : RecyclerView.ItemDecoration() {
     var weekStr = arrayOf("일", "월", "화", "수", "목", "금", "토")
