@@ -114,6 +114,7 @@ class HomeFragment : Fragment(), CoroutineScope {
 
     override fun onDestroy() {
         super.onDestroy()
+        if (!this::mJob.isInitialized) return
         mJob.cancel()
         //if(dialog.isShowing){
             //dialog.cancel()
