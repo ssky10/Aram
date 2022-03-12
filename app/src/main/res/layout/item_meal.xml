@@ -28,11 +28,17 @@
             android:text="아침"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/ll_item_meal_breakfast"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_item_meal_breakfast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -53,11 +59,16 @@
             android:text="점심"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/ll_item_meal_lunch"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_item_meal_lunch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -78,10 +89,16 @@
             android:text="저녁"
             android:textSize="20sp" />
 
-        <LinearLayout
-            android:id="@+id/ll_item_meal_dinner"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_item_meal_dinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
     </LinearLayout>
 </LinearLayout>

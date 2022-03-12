@@ -8,14 +8,14 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter.IndicatorInfo
 
 class MealIndicatorDecoration : RecyclerView.ItemDecoration() {
-    var weekStr = arrayOf("일", "월", "화", "수", "목", "금", "토")
+    var weekStr = arrayOf("월", "화", "수", "목", "금", "토", "일")
     private val colorActiveRect = Color.parseColor("#ffffff")
     private val colorInactive = Color.parseColor("#ffffff")
 
     private val DP: Float = Resources.getSystem().displayMetrics.density
+    private var SP: Float = Resources.getSystem().displayMetrics.scaledDensity
 
     private var mIndicatorItemLength = DP * 1 //인디케이터 아이템별 길이(onDrawOver에서 값 변경)
 
@@ -39,7 +39,7 @@ class MealIndicatorDecoration : RecyclerView.ItemDecoration() {
         mPaint.strokeCap = Paint.Cap.ROUND
         mPaint.style = Paint.Style.FILL_AND_STROKE
         mPaint.isAntiAlias = true
-        mPaint.textSize = 100f
+        mPaint.textSize = SP*25
     }
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -122,10 +122,10 @@ class MealIndicatorDecoration : RecyclerView.ItemDecoration() {
 
         val itemWidth = mIndicatorItemLength + charSize.width()
         if (progress == 0f) {
-            c.drawCircle(indicatorStartX + itemWidth * highlightPosition + mIndicatorItemLength,indicatorPosY,charSize.width().toFloat(),circlePaint)
+            c.drawCircle(touchAreas.touchArea[highlightPosition].exactCenterX(),indicatorPosY,charSize.width().toFloat(),circlePaint)
         } else {
             val partialLength = (mIndicatorItemLength + charSize.width()) * progress
-            c.drawCircle(indicatorStartX + itemWidth * highlightPosition + mIndicatorItemLength + partialLength,indicatorPosY, charSize.width().toFloat(), circlePaint)
+            c.drawCircle(touchAreas.touchArea[highlightPosition].exactCenterX() + partialLength,indicatorPosY, charSize.width().toFloat(), circlePaint)
         }
     }
 }

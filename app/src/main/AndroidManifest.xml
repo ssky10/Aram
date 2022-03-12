@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main">
+            android:label="@string/title_activity_main"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +25,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".NewAppWidget">
+        <receiver android:name=".MealHomeWidget" android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="andriod.action.BUTTON_CLICK" />

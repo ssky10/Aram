@@ -16,12 +16,19 @@ class SettingViewModel : ViewModel() {
         value = null
     }
 
+    private val _officialAppsAdapter = MutableLiveData<RecommendAdapter>().apply {
+        value = null
+    }
+
     val text: LiveData<String> = _text
 
     val appsAdapter: LiveData<RecommendAdapter> = _appsAdapter
 
-    fun setAppsAdapter(context: Context){
+    val officialAppsAdapter: LiveData<RecommendAdapter> = _officialAppsAdapter
+
+    fun setAdapter(context: Context){
         _appsAdapter.value = RecommendAdapter(context)
+        _officialAppsAdapter.value = RecommendAdapter(context)
     }
 
     fun setAppsAdapter(adapter: RecommendAdapter){
@@ -29,9 +36,23 @@ class SettingViewModel : ViewModel() {
         adapter.notifyDataSetChanged()
     }
 
-    fun addAppsData(title:String, context: String, developer:String, type:Int, url:String, thumbnail:String){
-        if(_appsAdapter.value != null){
-            _appsAdapter.value!!.addItem(title, context, developer, type, url, thumbnail)
+    fun setOfficialAppsAdapter(adapter: RecommendAdapter){
+        _appsAdapter.value = adapter
+        adapter.notifyDataSetChanged()
+    }
+
+    fun addAppsData(title:String, context: String, developer:String, type:Int, url:String, thumbnail:String, isOfficial:Boolean = true){
+        when(isOfficial){
+            true -> {
+                if(_officialAppsAdapter.value != null){
+                    _officialAppsAdapter.value!!.addItem(title, context, developer, type, url, thumbnail)
+                }
+            }
+            false -> {
+                if(_appsAdapter.value != null){
+                    _appsAdapter.value!!.addItem(title, context, developer, type, url, thumbnail)
+                }
+            }
         }
     }
 

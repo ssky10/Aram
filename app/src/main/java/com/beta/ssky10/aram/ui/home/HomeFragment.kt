@@ -49,7 +49,7 @@ class HomeFragment : Fragment(), CoroutineScope {
         mJob = Job()
         rvMainMeal = root!!.rv_main_meal
         //dialog = SpotsDialog(context)
-        adapter = MealAdapter(context!!)
+        adapter = MealAdapter(requireContext())
 
         rvMainMeal.adapter = adapter
         rvMainMeal.layoutManager = LinearLayoutManager(
@@ -80,31 +80,31 @@ class HomeFragment : Fragment(), CoroutineScope {
         )
         rvMainMeal.addOnScrollListener(listener)
 
-        homeViewModel!!.title.observe(this, Observer {
+        homeViewModel!!.title.observe(viewLifecycleOwner, Observer {
             root.tv_main_title!!.text = it
         })
 
-        homeViewModel!!.mealData.observe(this, Observer {
+        homeViewModel!!.mealData.observe(viewLifecycleOwner, Observer {
             if(it != null) adapter.mealsList = it.toList()
         })
 
         val today = Calendar.getInstance()
-        root.tv_main_today!!.text = "오늘은 ${today.get(Calendar.MONTH)+1}월 ${today.get(Calendar.DATE)}일 (${weekStr[today.get(Calendar.DAY_OF_WEEK)-1]}) 입니다"
+        root.tv_main_today!!.text = "오늘은 ${today.get(Calendar.MONTH)+1}월 ${today.get(Calendar.DATE)}일 (${weekStr[(today.get(Calendar.DAY_OF_WEEK)+6)%7]}) 입니다"
 
         if(isFirst){
             setMealData()
         }else{
-            rvMainMeal.scrollToPosition(cal.get(Calendar.DAY_OF_WEEK))
+            rvMainMeal.scrollToPosition((cal.get(Calendar.DAY_OF_WEEK)+5)%7+1)
         }
 
         adapter.onClickInterface = object : MealItemClickInterface {
             override fun onClickPreWeekItem() {
-                cal.add(Calendar.DATE, -cal.get(Calendar.DAY_OF_WEEK))
+                cal.add(Calendar.DATE, -((cal.get(Calendar.DAY_OF_WEEK)+5)%7+1))
                 setMealData()
             }
 
             override fun onClickNextWeekItem() {
-                cal.add(Calendar.DATE, 8 - cal.get(Calendar.DAY_OF_WEEK))
+                cal.add(Calendar.DATE, (8-cal.get(Calendar.DAY_OF_WEEK))%7+1)
                 setMealData()
             }
         }
@@ -126,21 +126,24 @@ class HomeFragment : Fragment(), CoroutineScope {
                 //dialog.show()
                 val deferred = async(Dispatchers.Default) {
                     //백그라운드 스레드 에서 동작합니다
-                    NetworkCoroutin.getMeal(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DATE))
+                    val loadDate = Calendar.getInstance()
+                    loadDate.timeInMillis = cal.timeInMillis
+                    loadDate.add(Calendar.DATE, -1)
+                    NetworkCoroutin.getMeal(loadDate.get(Calendar.YEAR), loadDate.get(Calendar.MONTH)+1, loadDate.get(Calendar.DATE))
                 }
                 val result = deferred.await()
 
                 homeViewModel!!.clearMealData()
                 val date = Calendar.getInstance()
                 date.timeInMillis = cal.timeInMillis
-                date.add(Calendar.DATE, -(cal.get(Calendar.DAY_OF_WEEK)-1))
+                date.add(Calendar.DATE, -((cal.get(Calendar.DAY_OF_WEEK)+5)%7))
                 for (i in 0 until 7){
-                    Log.e("onPostExecute","${weekStr[i]}요일, ${result.getValue("breakfast")[i]}, ${result.getValue("lunch")[i]}, ${result.getValue("dinner")[i]}" )
                     homeViewModel!!.addMael("${date.get(Calendar.MONTH)+1}월 ${date.get(Calendar.DATE)}일(${weekStr[date.get(Calendar.DAY_OF_WEEK)-1]})", result.getValue("breakfast")[i], result.getValue("lunch")[i], result.getValue("dinner")[i])
                     date.add(Calendar.DATE,1)
                 }
                 homeViewModel!!.updateMealData()
-                rvMainMeal.scrollToPosition(cal.get(Calendar.DAY_OF_WEEK))
+                Log.d("setMealData", "setMealData: ${cal.get(Calendar.DAY_OF_WEEK)}")
+                rvMainMeal.scrollToPosition((cal.get(Calendar.DAY_OF_WEEK)+5)%7+1)
                 isFirst = false
             }finally {
                 //dialog.cancel()

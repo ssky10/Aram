@@ -10,8 +10,8 @@ import kotlin.coroutines.suspendCoroutine
 class NetworkCoroutin() {
 
     companion object{
-        private val htmlPageUrl = "http://dorm.gnu.ac.kr/sub/04_05.jsp?"
-        private val severUrl = "https://kakaoplus.ml/publish/rest_api/android/"
+        private val htmlPageUrl = "https://newgh.gnu.ac.kr/dorm/ad/fm/foodmenu/selectFoodMenuView.do?mi=7278"
+        private val severUrl = "https://ssky10.dev/publish/rest_api/android/"
 
         suspend fun getMeal(year:Int, month:Int, day:Int) = suspendCoroutine<Map<String,List<String>>> {
             val breakfast = mutableListOf("", "", "", "", "", "", "")
@@ -20,8 +20,13 @@ class NetworkCoroutin() {
             val table: Array<MutableList<String>> = arrayOf(breakfast, lunch, dinner)
 
             try {
-                val doc = Jsoup.connect(htmlPageUrl + "year=" + year + "&month=" + month + "&date=" + day).get()
-                val links = doc.select("tbody tr")
+                val doc = Jsoup.connect(htmlPageUrl)
+                    .timeout(10000)
+                    .data("restSeq", "47")
+                    .data("schDt", "$year-$month-$day")
+                    .post()
+
+                val links = doc.select("div.BD_table tbody tr")
 
                 if (links.size >= 3) {
                     for (index in 0 until 3) {
@@ -36,17 +41,18 @@ class NetworkCoroutin() {
                                             .replace("\">", "\" style=\"color:blue\"><b>")
                                             .replace("</p>", "</b></pre><br>"))
                                 }
-                                Log.d("onPostExecute", breakfast.toString())
                             }
                         }
                     }
                 }
+                Log.d("Net", table[0][0])
+                Log.d("Net", "date : $year-$month-$day")
             } catch (e: IOException) {
                 e.printStackTrace()
                 for(i in 0 until 7){
-                    table[0][i] = "오류가 발생했습니다.\n다시 시도해주세요\nㅠㅠ"
-                    table[1][i] = "오류가 발생했습니다.\n다시 시도해주세요\nㅠㅠ"
-                    table[2][i] = "오류가 발생했습니다.\n다시 시도해주세요\nㅠㅠ"
+                    table[0][i] = "오류가 발생했습니다.<br/>다시 시도해주세요"
+                    table[1][i] = "오류가 발생했습니다.<br/>다시 시도해주세요"
+                    table[2][i] = "오류가 발생했습니다.<br/>다시 시도해주세요"
                 }
             } finally {
                 it.resume(mapOf(Pair("breakfast", breakfast), Pair("lunch", lunch), Pair("dinner", dinner)))
@@ -70,9 +76,10 @@ class NetworkCoroutin() {
                         item["title"] = data.getString("title")
                         item["context"] = data.getString("context")
                         item["developer"] = data.getString("developer")
-                        item["type"] = data.getInt("type").toString()
+                        item["type"] = data.getString("type")
                         item["url"] = data.getString("url")
                         item["thumbnail"] = data.getString("thumbnail")
+                        item["isOfficial"] = data.getString("isOfficial")
                         result.add(item)
                     }
                 }

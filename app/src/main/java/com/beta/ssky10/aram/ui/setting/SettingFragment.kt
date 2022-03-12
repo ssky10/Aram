@@ -45,18 +45,27 @@ class SettingFragment : Fragment(), CoroutineScope {
 
         mJob = Job()
 
-        dashboardViewModel.setAppsAdapter(context!!)
+        dashboardViewModel.setAdapter(requireContext())
 
-        dashboardViewModel.appsAdapter.observe(this, Observer {
-            root!!.rv_setting_recommend.adapter = it
-        })
+//        dashboardViewModel.appsAdapter.observe(this, Observer {
+//            root!!.rv_setting_recommend.adapter = it
+//        })
+//
+//        dashboardViewModel.officialAppsAdapter.observe(this, Observer {
+//            root!!.rv_setting_official_recommend.adapter = it
+//        })
+//
+//        root.rv_setting_recommend.layoutManager = LinearLayoutManager(
+//                context,
+//                LinearLayoutManager.VERTICAL, false
+//        )
+//
+//        root.rv_setting_official_recommend.layoutManager = LinearLayoutManager(
+//                context,
+//                LinearLayoutManager.VERTICAL, false
+//        )
 
-        root.rv_setting_recommend.layoutManager = LinearLayoutManager(
-                context,
-                LinearLayoutManager.VERTICAL, false
-        )
-
-        setAppData()
+//        setAppData()
 
         root.findViewById<Switch>(R.id.switch_setting_night).setOnClickListener {
             App.prefs.ableNightMode = (it as Switch).isChecked
@@ -87,6 +96,14 @@ class SettingFragment : Fragment(), CoroutineScope {
 
         root.tv_setting_now_version.text = getAppVersionName()
 
+        root.tv_setting_bug.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(
+                    "https://forms.gle/sB6ABjuvKJ6dLEyt5")
+            }
+            startActivity(intent)
+        }
+
         root.tv_setting_review.setOnClickListener{
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(
@@ -96,12 +113,19 @@ class SettingFragment : Fragment(), CoroutineScope {
             startActivity(intent)
         }
 
-        root.iv_setting_apps_toggle.setOnClickListener {
-            when(root.rv_setting_recommend.visibility){
-                View.GONE -> root.rv_setting_recommend.visibility = View.VISIBLE
-                View.VISIBLE -> root.rv_setting_recommend.visibility = View.GONE
-            }
-        }
+//        root.iv_setting_apps_toggle.setOnClickListener {
+//            when(root.rv_setting_recommend.visibility){
+//                View.GONE -> root.rv_setting_recommend.visibility = View.VISIBLE
+//                View.VISIBLE -> root.rv_setting_recommend.visibility = View.GONE
+//            }
+//        }
+//
+//        root.iv_setting_official_apps_toggle.setOnClickListener {
+//            when(root.rv_setting_official_recommend.visibility){
+//                View.GONE -> root.rv_setting_official_recommend.visibility = View.VISIBLE
+//                View.VISIBLE -> root.rv_setting_official_recommend.visibility = View.GONE
+//            }
+//        }
 
         return root
     }
@@ -116,7 +140,7 @@ class SettingFragment : Fragment(), CoroutineScope {
 
         //PackageInfo 초기화
         try{
-            packageInfo = context!!.packageManager.getPackageInfo(context!!.packageName, 0);
+            packageInfo = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0);
         }catch (e: PackageManager.NameNotFoundException){
             e.printStackTrace()
             return ""
@@ -141,7 +165,11 @@ class SettingFragment : Fragment(), CoroutineScope {
                     val type = (item["type"]?: "1").toInt()
                     val url = item["url"]?: ""
                     val thumbnail = item["thumbnail"]?: ""
-                    dashboardViewModel.addAppsData(title, context, developer, type, url, thumbnail)
+                    when(item["isOfficial"] != "0"){
+                        true -> dashboardViewModel.addAppsData(title, context, developer, type, url, thumbnail, true)
+                        false -> dashboardViewModel.addAppsData(title, context, developer, type, url, thumbnail, false)
+                    }
+
                 }
             }finally {
 

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">아람관 식단(Lite)</string>
     <string name="add_widget">오늘의 식단 위젯</string>
-    <string name="title_activity_main">아람관 식단(Lite)</string>
+    <string name="title_activity_main">아람관 식단</string>
     <string name="title_home">식단조회</string>
     <string name="title_setting">설정</string>
 </resources>

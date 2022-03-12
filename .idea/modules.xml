@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Aram.iml" filepath="$PROJECT_DIR$/Aram.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Aram.iml" filepath="$PROJECT_DIR$/.idea/modules/Aram.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Aram.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Aram.app.iml" />
     </modules>
   </component>
 </project>
