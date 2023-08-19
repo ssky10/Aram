@@ -1,11 +1,11 @@
 package com.beta.ssky10.aram
 
-import android.app.Application
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.multidex.MultiDexApplication
 import com.beta.ssky10.aram.models.MySharedPreferences
 
-class App : Application() {
+class App : MultiDexApplication() {
     companion object{
         lateinit var prefs : MySharedPreferences
     }
