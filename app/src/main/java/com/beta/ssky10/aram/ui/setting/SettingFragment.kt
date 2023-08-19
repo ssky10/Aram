@@ -7,21 +7,18 @@ import android.view.ViewGroup
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
 import android.widget.Switch
+import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.ViewModelProvider
 import com.beta.ssky10.aram.App
 import com.beta.ssky10.aram.R
 import com.beta.ssky10.aram.customRecyclerViewAdapter.recommendAppsAdapter.RecommendAdapter
 import com.beta.ssky10.aram.netWork.NetworkCoroutin
-import com.beta.ssky10.aram.ui.home.HomeFragment
-import kotlinx.android.synthetic.main.fragment_setting.view.*
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -40,7 +37,7 @@ class SettingFragment : Fragment(), CoroutineScope {
             savedInstanceState: Bundle?
     ): View? {
         dashboardViewModel =
-                ViewModelProviders.of(this).get(SettingViewModel::class.java)
+                ViewModelProvider(this).get(SettingViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_setting, container, false)
 
         mJob = Job()
@@ -70,21 +67,21 @@ class SettingFragment : Fragment(), CoroutineScope {
         root.findViewById<Switch>(R.id.switch_setting_night).setOnClickListener {
             App.prefs.ableNightMode = (it as Switch).isChecked
             if(it.isChecked){
-                root.layout_setting_fixed_nigth_mode.visibility = View.VISIBLE
+                root.findViewById<ConstraintLayout>(R.id.layout_setting_fixed_nigth_mode).visibility = View.VISIBLE
             }else{
-                root.layout_setting_fixed_nigth_mode.visibility = View.GONE
+                root.findViewById<ConstraintLayout>(R.id.layout_setting_fixed_nigth_mode).visibility = View.GONE
             }
             Toast.makeText(context, "다음번 실행시 설정이 적용됩니다.", Toast.LENGTH_LONG).show()
         }
 
-        root.switch_setting_night.isChecked = App.prefs.ableNightMode
+        root.findViewById<Switch>(R.id.switch_setting_night).isChecked = App.prefs.ableNightMode
 
         if(App.prefs.ableNightMode){
-            root.switch_setting_night.isChecked = true
-            root.layout_setting_fixed_nigth_mode.visibility = View.VISIBLE
+            root.findViewById<Switch>(R.id.switch_setting_night).isChecked = true
+            root.findViewById<ConstraintLayout>(R.id.layout_setting_fixed_nigth_mode).visibility = View.VISIBLE
         }else{
-            root.switch_setting_night.isChecked = false
-            root.layout_setting_fixed_nigth_mode.visibility = View.GONE
+            root.findViewById<Switch>(R.id.switch_setting_night).isChecked = false
+            root.findViewById<ConstraintLayout>(R.id.layout_setting_fixed_nigth_mode).visibility = View.GONE
         }
 
         root.findViewById<Switch>(R.id.switch_setting_night_auto).setOnClickListener {
@@ -92,11 +89,11 @@ class SettingFragment : Fragment(), CoroutineScope {
             Toast.makeText(context, "다음번 실행시 설정이 적용됩니다.", Toast.LENGTH_LONG).show()
         }
 
-        root.switch_setting_night_auto.isChecked = App.prefs.isFixedNightMode
+        root.findViewById<Switch>(R.id.switch_setting_night_auto).isChecked = App.prefs.isFixedNightMode
 
-        root.tv_setting_now_version.text = getAppVersionName()
+        root.findViewById<TextView>(R.id.tv_setting_now_version).text = getAppVersionName()
 
-        root.tv_setting_bug.setOnClickListener{
+        root.findViewById<TextView>(R.id.tv_setting_bug).setOnClickListener{
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(
                     "https://forms.gle/sB6ABjuvKJ6dLEyt5")
@@ -104,7 +101,7 @@ class SettingFragment : Fragment(), CoroutineScope {
             startActivity(intent)
         }
 
-        root.tv_setting_review.setOnClickListener{
+        root.findViewById<TextView>(R.id.tv_setting_review).setOnClickListener{
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(
                         "https://play.google.com/store/apps/details?id=com.beta.ssky10.aram")
