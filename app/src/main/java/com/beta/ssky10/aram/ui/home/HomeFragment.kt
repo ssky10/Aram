@@ -1,22 +1,20 @@
 package com.beta.ssky10.aram.ui.home
 
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.beta.ssky10.aram.R
 import com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter.*
 import com.beta.ssky10.aram.netWork.NetworkCoroutin
-//import dmax.dialog.SpotsDialog
-import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.*
 import java.util.Calendar
 import kotlin.coroutines.CoroutineContext
@@ -43,11 +41,11 @@ class HomeFragment : Fragment(), CoroutineScope {
             savedInstanceState: Bundle?
     ): View? {
         if(homeViewModel == null){
-            homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+            homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         }
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         mJob = Job()
-        rvMainMeal = root!!.rv_main_meal
+        rvMainMeal = root!!.findViewById(R.id.rv_main_meal)
         //dialog = SpotsDialog(context)
         adapter = MealAdapter(requireContext())
 
@@ -81,7 +79,7 @@ class HomeFragment : Fragment(), CoroutineScope {
         rvMainMeal.addOnScrollListener(listener)
 
         homeViewModel!!.title.observe(viewLifecycleOwner, Observer {
-            root.tv_main_title!!.text = it
+            root.findViewById<TextView>(R.id.tv_main_title)!!.text = it
         })
 
         homeViewModel!!.mealData.observe(viewLifecycleOwner, Observer {
@@ -89,7 +87,7 @@ class HomeFragment : Fragment(), CoroutineScope {
         })
 
         val today = Calendar.getInstance()
-        root.tv_main_today!!.text = "오늘은 ${today.get(Calendar.MONTH)+1}월 ${today.get(Calendar.DATE)}일 (${weekStr[(today.get(Calendar.DAY_OF_WEEK)+6)%7]}) 입니다"
+        root.findViewById<TextView>(R.id.tv_main_today)!!.text = "오늘은 ${today.get(Calendar.MONTH)+1}월 ${today.get(Calendar.DATE)}일 (${weekStr[(today.get(Calendar.DAY_OF_WEEK)+6)%7]}) 입니다"
 
         if(isFirst){
             setMealData()

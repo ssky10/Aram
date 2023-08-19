@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beta.ssky10.aram.R
 import com.beta.ssky10.aram.models.RecommendInfo
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_app.view.*
-
 
 class RecommendAdapter(var Act_context: Context) : RecyclerView.Adapter<RecommendAdapter.ItemHolder>()  {
 
@@ -41,11 +39,11 @@ class RecommendAdapter(var Act_context: Context) : RecyclerView.Adapter<Recommen
         : RecyclerView.ViewHolder(
             LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_app, parent, false)){
-        val tvTitle: TextView = itemView.tv_item_app_title
-        val tvContext: TextView = itemView.tv_item_app_context
-        val tvDeveloper: TextView = itemView.tv_item_app_developer
-        val ivThumbnail: ImageView = itemView.iv_item_app_thumbnail
-        val clLayout:ConstraintLayout = itemView.cl_item_app_layout
+        val tvTitle: TextView = super.itemView.findViewById(R.id.tv_item_app_title)
+        val tvContext: TextView = super.itemView.findViewById(R.id.tv_item_app_context)
+        val tvDeveloper: TextView = super.itemView.findViewById(R.id.tv_item_app_developer)
+        val ivThumbnail: ImageView = super.itemView.findViewById(R.id.iv_item_app_thumbnail)
+        val clLayout:ConstraintLayout = super.itemView.findViewById(R.id.cl_item_app_layout)
     }
 
     override fun getItemCount(): Int = mealsList.size
