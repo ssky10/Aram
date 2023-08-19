@@ -10,7 +10,7 @@ import kotlin.coroutines.suspendCoroutine
 class NetworkCoroutin() {
 
     companion object{
-        private val htmlPageUrl = "https://newgh.gnu.ac.kr/dorm/ad/fm/foodmenu/selectFoodMenuView.do?mi=7278"
+        private val htmlPageUrl = "https://www.gnu.ac.kr/dorm/ad/fm/foodmenu/selectFoodMenuView.do?mi=7278"
         private val severUrl = "https://ssky10.dev/publish/rest_api/android/"
 
         suspend fun getMeal(year:Int, month:Int, day:Int) = suspendCoroutine<Map<String,List<String>>> {
