@@ -10,8 +10,8 @@ import android.text.Html
 import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
-import com.beta.ssky10.aram.netWork.NetworkCoroutin
-import com.beta.ssky10.aram.ui.home.HomeFragment
+import com.ssky10.gnumeal.GNUMeal
+import com.ssky10.gnumeal.enums.CafeteriaType
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.coroutines.CoroutineContext
@@ -103,7 +103,8 @@ class MealHomeWidget : AppWidgetProvider(), CoroutineScope {
                     val loadDate = Calendar.getInstance()
                     loadDate.timeInMillis = cal.timeInMillis
                     loadDate.add(Calendar.DATE, -1)
-                    NetworkCoroutin.getMeal(loadDate.get(Calendar.YEAR), loadDate.get(Calendar.MONTH)+1, loadDate.get(Calendar.DATE))
+                    val gnuMeal = GNUMeal(CafeteriaType.GAJWA_DORMITORY)
+                    gnuMeal.getMeal(loadDate.get(Calendar.YEAR), loadDate.get(Calendar.MONTH)+1, loadDate.get(Calendar.DATE))
                 }
                 val result = deferred.await()
 

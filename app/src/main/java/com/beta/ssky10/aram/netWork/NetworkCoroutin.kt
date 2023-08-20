@@ -10,54 +10,7 @@ import kotlin.coroutines.suspendCoroutine
 class NetworkCoroutin() {
 
     companion object{
-        private val htmlPageUrl = "https://www.gnu.ac.kr/dorm/ad/fm/foodmenu/selectFoodMenuView.do?mi=7278"
         private val severUrl = "https://ssky10.dev/publish/rest_api/android/"
-
-        suspend fun getMeal(year:Int, month:Int, day:Int) = suspendCoroutine<Map<String,List<String>>> {
-            val breakfast = mutableListOf("", "", "", "", "", "", "")
-            val lunch = mutableListOf("", "", "", "", "", "", "")
-            val dinner = mutableListOf("", "", "", "", "", "", "")
-            val table: Array<MutableList<String>> = arrayOf(breakfast, lunch, dinner)
-
-            try {
-                val doc = Jsoup.connect(htmlPageUrl)
-                    .timeout(10000)
-                    .data("restSeq", "47")
-                    .data("schDt", "$year-$month-$day")
-                    .post()
-
-                val links = doc.select("div.BD_table tbody tr")
-
-                if (links.size >= 3) {
-                    for (index in 0 until 3) {
-                        val dayTable = links[index].select("td")
-                        when (dayTable.size) {
-                            7 -> {
-                                table[index].clear()
-                                for (meal in dayTable) {
-                                    table[index].add(meal.html()
-                                            .replace("<p class=\"special_menu_a\"", "<pre class=\"special_menu_a\"")
-                                            .replace("<p cla", "<br><pre cla")
-                                            .replace("\">", "\" style=\"color:blue\"><b>")
-                                            .replace("</p>", "</b></pre><br>"))
-                                }
-                            }
-                        }
-                    }
-                }
-                Log.d("Net", table[0][0])
-                Log.d("Net", "date : $year-$month-$day")
-            } catch (e: IOException) {
-                e.printStackTrace()
-                for(i in 0 until 7){
-                    table[0][i] = "오류가 발생했습니다.<br/>다시 시도해주세요"
-                    table[1][i] = "오류가 발생했습니다.<br/>다시 시도해주세요"
-                    table[2][i] = "오류가 발생했습니다.<br/>다시 시도해주세요"
-                }
-            } finally {
-                it.resume(mapOf(Pair("breakfast", breakfast), Pair("lunch", lunch), Pair("dinner", dinner)))
-            }
-        }
 
         suspend fun getAppsList(packageName:String) = suspendCoroutine<List<Map<String,String>>> {
             val result = mutableListOf<Map<String,String>>()

@@ -7,6 +7,13 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Aram.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Aram.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Aram.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Aram.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Aram.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Aram.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gnuMeal/Aram.gnuMeal.iml" filepath="$PROJECT_DIR$/.idea/modules/gnuMeal/Aram.gnuMeal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gnuMeal/Aram.gnuMeal.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gnuMeal/Aram.gnuMeal.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gnuMeal/Aram.gnuMeal.test.iml" filepath="$PROJECT_DIR$/.idea/modules/gnuMeal/Aram.gnuMeal.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wear/Aram.wear.iml" filepath="$PROJECT_DIR$/.idea/modules/wear/Aram.wear.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wear/Aram.wear.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/wear/Aram.wear.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wear/Aram.wear.main.iml" filepath="$PROJECT_DIR$/.idea/modules/wear/Aram.wear.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wear/Aram.wear.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/wear/Aram.wear.unitTest.iml" />
     </modules>
   </component>
 </project>

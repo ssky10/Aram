@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.beta.ssky10.aram.R
 import com.beta.ssky10.aram.customRecyclerViewAdapter.mealAdapter.*
-import com.beta.ssky10.aram.netWork.NetworkCoroutin
+import com.ssky10.gnumeal.GNUMeal
+import com.ssky10.gnumeal.enums.CafeteriaType
 import kotlinx.coroutines.*
 import java.util.Calendar
 import kotlin.coroutines.CoroutineContext
@@ -128,7 +129,8 @@ class HomeFragment : Fragment(), CoroutineScope {
                     val loadDate = Calendar.getInstance()
                     loadDate.timeInMillis = cal.timeInMillis
                     loadDate.add(Calendar.DATE, -1)
-                    NetworkCoroutin.getMeal(loadDate.get(Calendar.YEAR), loadDate.get(Calendar.MONTH)+1, loadDate.get(Calendar.DATE))
+                    val gnuMeal = GNUMeal(CafeteriaType.GAJWA_DORMITORY)
+                    gnuMeal.getMeal(loadDate.get(Calendar.YEAR), loadDate.get(Calendar.MONTH)+1, loadDate.get(Calendar.DATE))
                 }
                 val result = deferred.await()
 
